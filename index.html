@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bayu Ahmad Nurfaizi — Portofolio</title>
+  <meta name="description" content="Portofolio Bayu Ahmad Nurfaizi, mahasiswa Sistem Informasi yang suka teknologi." />
+
+  <!-- Set tema sebelum halaman dirender supaya tidak berkedip -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", saved || (prefersDark ? "dark" : "light"));
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+      document.documentElement.classList.add("js");
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Lewati ke konten</a>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav__inner">
+      <a href="#top" class="brand" aria-label="Bayu Ahmad Nurfaizi, ke atas">bayu<span>.</span></a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navigasi utama">
+        <a href="#tentang">Tentang</a>
+        <a href="#skill">Skill</a>
+        <a href="#pengalaman">Pengalaman</a>
+        <a href="#proyek">Proyek</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Ganti tema">
+          <svg class="i-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap hero__inner">
+        <div class="hero__text">
+          <p class="hero__hi">Halo, saya</p>
+          <h1 class="hero__name" aria-label="Bayu Ahmad Nurfaizi">
+            <span class="line"><span>Bayu Ahmad</span></span>
+            <span class="line"><span>Nurfaizi</span></span>
+          </h1>
+          <p class="hero__desc">
+            Mahasiswa Sistem Informasi yang senang membangun dan mempelajari
+            hal-hal berbau teknologi.
+          </p>
+          <div class="hero__cta">
+            <a href="#pengalaman" class="btn btn--primary">Lihat pengalaman</a>
+            <a href="#kontak" class="btn btn--ghost">Hubungi saya</a>
+          </div>
+        </div>
+        <figure class="hero__photo">
+          <span class="hero__photo-fallback" aria-hidden="true">BA</span>
+          <img src="foto.jpeg" alt="Foto Bayu Ahmad Nurfaizi" width="400" height="500"
+               onerror="this.remove()" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section class="section" id="tentang">
+      <div class="wrap grid-2">
+        <div class="section__head reveal">
+          <h2>Tentang saya</h2>
+        </div>
+        <div class="about">
+          <div class="reveal">
+            <p class="lead">
+              Saya Bayu, mahasiswa Sistem Informasi yang sejak awal tertarik pada
+              cara teknologi menyelesaikan masalah sehari-hari.
+            </p>
+            <p>
+              Saya terbiasa bekerja dengan disiplin: target dibuat jelas, dikerjakan
+              bertahap, dan diselesaikan sampai tuntas. Kalau satu cara belum berhasil,
+              saya coba cara lain sampai ketemu jalannya. Saya nyaman bekerja sendiri,
+              dan sama nyamannya saat bekerja dalam tim.
+            </p>
+          </div>
+
+          <ul class="traits reveal">
+            <li><strong>Disiplin</strong><span>Konsisten menjaga ritme dan komitmen.</span></li>
+            <li><strong>Pantang menyerah</strong><span>Masalah adalah bahan belajar, bukan alasan berhenti.</span></li>
+            <li><strong>Individu &amp; tim</strong><span>Bisa mandiri, bisa juga berkolaborasi.</span></li>
+            <li><strong>Suka teknologi</strong><span>Selalu penasaran dengan hal baru di dunia digital.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILL -->
+    <section class="section" id="skill">
+      <div class="wrap grid-2">
+        <div class="section__head reveal">
+          <h2>Skill</h2>
+          <p>Alat yang saya gunakan untuk belajar dan berkarya.</p>
+        </div>
+        <div class="skills reveal">
+          <div class="skill-group">
+            <h3>Pemrograman</h3>
+            <ul class="chips"><li>Python</li></ul>
+          </div>
+          <div class="skill-group">
+            <h3>Pengembangan web</h3>
+            <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+          </div>
+          <div class="skill-group">
+            <h3>Produktivitas</h3>
+            <ul class="chips"><li>Microsoft Office</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PENGALAMAN -->
+    <section class="section" id="pengalaman">
+      <div class="wrap grid-2">
+        <div class="section__head reveal">
+          <h2>Pengalaman kerja</h2>
+          <p>Bekerja langsung dengan orang membuat saya terbiasa berkomunikasi dan menjaga target.</p>
+        </div>
+        <ol class="timeline">
+          <li class="reveal">
+            <h3>Deskcollection</h3>
+            <p class="org">PT Colmitra Persada Indonesia</p>
+            <p>Menghubungi dan menindaklanjuti nasabah untuk penyelesaian kewajiban, dengan komunikasi yang tertata dan tetap sopan.</p>
+          </li>
+          <li class="reveal">
+            <h3>Telemarketing</h3>
+            <p class="org">BFI Finance</p>
+            <p>Menawarkan produk pembiayaan kepada calon nasabah lewat telepon dan menjaga target harian.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- PROYEK -->
+    <section class="section" id="proyek">
+      <div class="wrap grid-2">
+        <div class="section__head reveal">
+          <h2>Proyek</h2>
+        </div>
+        <div class="soon reveal">
+          <div class="soon__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"/></svg>
+          </div>
+          <h3>Segera hadir</h3>
+          <p>Proyek pertama sedang dikerjakan. Cek lagi nanti.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section class="section contact" id="kontak">
+      <div class="wrap">
+        <div class="reveal">
+          <h2 class="contact__title">Mari ngobrol.</h2>
+          <p class="contact__sub">Punya peluang, pertanyaan, atau sekadar ingin berkenalan? Kirim pesan kapan saja.</p>
+        </div>
+
+        <div class="contact__links reveal">
+          <a class="contact__link" href="mailto:bayu@gmail.com">
+            <span class="contact__label">Email</span>
+            <span class="contact__value">bayuahmadnurfaizi12@gmail.com</span>
+          </a>
+          <a class="contact__link" href="https://instagram.com/bayuahmadnf" target="_blank" rel="noopener noreferrer">
+            <span class="contact__label">Instagram</span>
+            <span class="contact__value">@bayuahmadnf</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p>© <span id="year">2026</span> Bayu Ahmad Nurfaizi</p>
+      <a href="#top">Kembali ke atas</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
