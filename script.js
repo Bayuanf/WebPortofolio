@@ -1,80 +1,177 @@
+/**
+ * Portfolio Interaction Scripts
+ * Bayu Ahmad Nurfaizi — Dark Monochrome Chrome Edition
+ */
+
 (() => {
-  const root = document.documentElement;
-  const nav = document.getElementById("nav");
-  const navLinks = document.getElementById("navLinks");
-  const menuBtn = document.getElementById("menuBtn");
-  const themeBtn = document.getElementById("themeToggle");
-  const hero = document.querySelector(".hero");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  'use strict';
 
-  /* ---------- Tema gelap / terang ---------- */
-  themeBtn.addEventListener("click", () => {
-    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try { localStorage.setItem("theme", next); } catch (e) {}
-  });
+  // DOM Elements
+  const navbar = document.getElementById('navbar');
+  const navMenu = document.getElementById('navMenu');
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const currentYearSpan = document.getElementById('currentYear');
+  const reveals = document.querySelectorAll('.reveal');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Ikuti pengaturan sistem selama user belum memilih manual
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    let saved = null;
-    try { saved = localStorage.getItem("theme"); } catch (err) {}
-    if (!saved) root.setAttribute("data-theme", e.matches ? "dark" : "light");
-  });
+  // 1. Set Dynamic Current Year
+  if (currentYearSpan) {
+    currentYearSpan.textContent = new Date().getFullYear();
+  }
 
-  /* ---------- Navbar: efek saat scroll ---------- */
-  const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 12);
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
-
-  /* ---------- Menu mobile ---------- */
-  const setMenu = (open) => {
-    navLinks.classList.toggle("open", open);
-    menuBtn.setAttribute("aria-expanded", String(open));
-    menuBtn.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+  // 2. Navbar Scrolled State
+  const handleScroll = () => {
+    if (window.scrollY > 24) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
   };
-  menuBtn.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
-  navLinks.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // initialize on load
 
-  /* ---------- Reveal saat scroll ---------- */
-  const reveals = document.querySelectorAll(".reveal");
-  if ("IntersectionObserver" in window && !reduceMotion) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in");
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-    reveals.forEach((el) => io.observe(el));
-  } else {
-    reveals.forEach((el) => el.classList.add("in"));
-  }
+  // 3. Mobile Menu Toggle
+  if (menuToggle && navMenu) {
+    const toggleMenu = (open) => {
+      const isOpen = typeof open === 'boolean' ? open : !navMenu.classList.contains('open');
+      navMenu.classList.toggle('open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    };
 
-  /* ---------- Menu aktif sesuai section ---------- */
-  const links = [...navLinks.querySelectorAll("a")];
-  const sections = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-  if ("IntersectionObserver" in window) {
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id));
-        }
-      });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    sections.forEach((s) => spy.observe(s));
-  }
+    menuToggle.addEventListener('click', () => toggleMenu());
 
-  /* ---------- Cahaya lembut mengikuti kursor di hero ---------- */
-  if (hero && !reduceMotion && window.matchMedia("(hover: hover)").matches) {
-    hero.addEventListener("pointermove", (e) => {
-      const r = hero.getBoundingClientRect();
-      hero.style.setProperty("--mx", e.clientX - r.left + "px");
-      hero.style.setProperty("--my", e.clientY - r.top + "px");
+    // Close menu when clicking on any nav link
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    // Close menu with ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('open')) {
+        toggleMenu(false);
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (
+        navMenu.classList.contains('open') &&
+        !navMenu.contains(e.target) &&
+        !menuToggle.contains(e.target)
+      ) {
+        toggleMenu(false);
+      }
     });
   }
 
-  /* ---------- Tahun di footer ---------- */
-  document.getElementById("year").textContent = new Date().getFullYear();
+  // 4. Scroll Reveal via IntersectionObserver
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: '0px 0px 40px 0px',
+      }
+    );
+
+    reveals.forEach((el) => {
+      // If already in initial viewport, reveal immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('in-view');
+      } else {
+        revealObserver.observe(el);
+      }
+    });
+  } else {
+    // Fallback: make everything immediately visible
+    reveals.forEach((el) => el.classList.add('in-view'));
+  }
+
+  // 5. Active Navigation Link Scroll Spy
+  const sections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window) {
+    const spyObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const currentId = entry.target.getAttribute('id');
+            navLinks.forEach((link) => {
+              if (link.getAttribute('href') === `#${currentId}`) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      },
+      {
+        rootMargin: '-30% 0px -60% 0px',
+      }
+    );
+
+    sections.forEach((section) => spyObserver.observe(section));
+  }
+
+  // 6. Image Lightbox Feature
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxTriggers = document.querySelectorAll('.lightbox-trigger');
+
+  if (lightboxModal && lightboxImage) {
+    const openLightbox = (src, caption) => {
+      lightboxImage.src = src;
+      lightboxImage.alt = caption || 'Pratinjau Screenshot Proyek';
+      if (lightboxCaption) {
+        lightboxCaption.textContent = caption || '';
+      }
+      lightboxModal.classList.add('active');
+      lightboxModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightboxModal.classList.remove('active');
+      lightboxModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        if (!lightboxModal.classList.contains('active')) {
+          lightboxImage.src = '';
+        }
+      }, 300);
+    };
+
+    lightboxTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        const src = trigger.getAttribute('data-lightbox');
+        const caption = trigger.getAttribute('data-caption');
+        if (src) {
+          openLightbox(src, caption);
+        }
+      });
+    });
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxModal.classList.contains('active')) {
+        closeLightbox();
+      }
+    });
+  }
 })();
