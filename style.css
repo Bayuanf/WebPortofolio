@@ -1334,15 +1334,39 @@ button {
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
   }
-  .hero__visual {
-    order: -1;
-    justify-content: flex-start;
+  .hero__content {
+    display: contents;
+  }
+  .hero .eyebrow-tag {
+    order: 1;
+  }
+  .hero .hero__title {
+    order: 2;
+  }
+  .hero .hero__author {
+    order: 3;
+    margin-bottom: 1.25rem;
+  }
+  .hero .hero__visual {
+    order: 4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.75rem;
   }
   .portrait-card {
-    width: min(100%, 280px);
+    width: min(100%, 260px);
+  }
+  .hero .hero__subtitle {
+    order: 5;
+  }
+  .hero .hero__actions {
+    order: 6;
   }
   .projects-showcase .project-visuals {
     grid-template-columns: 1fr;
@@ -1430,10 +1454,18 @@ button {
     margin-bottom: 1.2rem;
   }
   .hero__author {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.25rem;
   }
   .hero__name {
     font-size: 1.2rem;
+  }
+  .hero__visual {
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  .portrait-card {
+    width: min(100%, 210px);
   }
   .hero__subtitle {
     font-size: 0.95rem;
@@ -1449,13 +1481,6 @@ button {
     width: 100%;
     min-height: 48px;
     padding: 0.85rem 1.4rem;
-  }
-  .hero__visual {
-    justify-content: center;
-    width: 100%;
-  }
-  .portrait-card {
-    width: min(100%, 240px);
   }
 
   .project-card__header {
