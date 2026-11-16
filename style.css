@@ -879,6 +879,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  align-items: start;
 }
 .capability-card {
   background: var(--surface);
@@ -943,9 +944,10 @@ button {
 }
 .tool-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.7rem 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-sm);
@@ -960,11 +962,13 @@ button {
   font-weight: 700;
   color: #FFFFFF;
   font-size: 0.92rem;
+  line-height: 1.3;
 }
 .tool-note {
   font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 500;
+  line-height: 1.45;
 }
 
 /* ==========================================================================
